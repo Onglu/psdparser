@@ -1,0 +1,204 @@
+# depslib dependency file v1.0
+1368064631 source:g:\projects\psdparse\channel.c
+	"psdparse.h"
+
+1371699753 g:\projects\psdparse\psdparse.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<limits.h>
+	<fcntl.h>
+	<MacTypes.h>
+	"getopt.h"
+	<stdint.h>
+	<sys/types.h>
+	<wchar.h>
+	<ctype.h>
+	<errno.h>
+	<sys/stat.h>
+	<direct.h>
+	"getopt.h"
+	<getopt.h>
+	<unistd.h>
+	<iconv.h>
+	"world.h"
+	"file_compat.h"
+	<direct.h>
+
+1367571046 g:\projects\psdparse\getopt.h
+	<ctype.h>
+
+1367571046 g:\projects\psdparse\\getopt.h
+	<ctype.h>
+
+1367571046 source:g:\projects\psdparse\constants.c
+	"psdparse.h"
+
+1367571046 source:g:\projects\psdparse\descriptor.c
+	"psdparse.h"
+
+1367571046 source:g:\projects\psdparse\duotone.c
+	"psdparse.h"
+
+1370765850 source:g:\projects\psdparse\extra.c
+	"psdparse.h"
+	"psdparser.h"
+
+1370591384 g:\projects\psdparse\build\lib\\psdparser.h
+
+1367921390 source:g:\projects\psdparse\getopt.c
+	<config.h>
+	<stdio.h>
+	<gnu-versions.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<unixlib.h>
+	<libintl.h>
+	"gettext.h"
+	"../../../include/gettext/gettext.h"
+	<wchar.h>
+	"getopt.h"
+	"getopt_int.h"
+
+1356413350 g:\projects\psdparse\include\gettext\gettext.h
+	<libintl.h>
+	<locale.h>
+	<cstdlib>
+	<libintl.h>
+	<string.h>
+	<stdlib.h>
+
+1367571046 g:\projects\psdparse\getopt_int.h
+
+1368064631 source:g:\projects\psdparse\icc.c
+	"psdparse.h"
+
+1367571046 source:g:\projects\psdparse\mmap_win.c
+	<windows.h>
+	<io.h>
+	"psdparse.h"
+
+1367571046 source:g:\projects\psdparse\packbits.c
+	<string.h>
+	"psdparse.h"
+
+1367571046 source:g:\projects\psdparse\pdf.c
+	"psdparse.h"
+
+1371700021 source:g:\projects\psdparse\psd.c
+	"psdparse.h"
+	"cwprefix.h"
+	"psdparser.h"
+
+1367922032 g:\projects\psdparse\cwprefix.h
+	<Win32Headers.mch>
+
+1367571046 source:g:\projects\psdparse\psd_zip.c
+	"psdparse.h"
+	"zlib.h"
+
+1271736768 g:\projects\psdparse\include\zlib\zlib.h
+	"zconf.h"
+
+1271613486 g:\projects\psdparse\include\zlib\zconf.h
+	<windows.h>
+	<sys/types.h>
+	<unistd.h>
+	<unixio.h>
+
+1368064631 source:g:\projects\psdparse\rebuild.c
+	<stdio.h>
+	<stdlib.h>
+	"psdparse.h"
+
+1368775083 source:g:\projects\psdparse\resources.c
+	"psdparse.h"
+
+1368064631 source:g:\projects\psdparse\scavenge.c
+	<stdio.h>
+	<stdlib.h>
+	"zlib.h"
+	"psdparse.h"
+
+1367571046 source:g:\projects\psdparse\unpackbits.c
+	<string.h>
+	"psdparse.h"
+
+1368069004 source:g:\projects\psdparse\util.c
+	<stdarg.h>
+	<ctype.h>
+	<errno.h>
+	"psdparse.h"
+	"version.h"
+	"cwprefix.h"
+
+1367571046 g:\projects\psdparse\version.h
+
+1371700510 source:g:\projects\psdparse\write.c
+	"psdparse.h"
+	"png.h"
+	"psdparser.h"
+
+1366892684 g:\projects\psdparse\include\libpng\png.h
+	"pnglibconf.h"
+	"pngconf.h"
+
+1366892686 g:\projects\psdparse\include\libpng\pnglibconf.h
+
+1366892684 g:\projects\psdparse\include\libpng\pngconf.h
+	<limits.h>
+	<stddef.h>
+	<stdio.h>
+	<setjmp.h>
+	<time.h>
+
+1368007728 source:g:\projects\psdparse\writepng.c
+	<stdio.h>
+	<stdlib.h>
+	"psdparse.h"
+	"png.h"
+	"../../../include/libpng/png.h"
+	"zlib.h"
+	"../../../include/zlib/zlib.h"
+
+1367571046 source:g:\projects\psdparse\writeraw.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"psdparse.h"
+
+1371700564 source:g:\projects\psdparse\build\lib\psdparser.c
+	<stdio.h>
+	<string.h>
+	<math.h>
+	"psdparser.h"
+	"psdparse.h"
+	"png.h"
+	"zlib.h"
+
+1370591384 g:\projects\psdparse\build\lib\psdparser.h
+
+1371699753 g:\projects\psdparse\\psdparse.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<limits.h>
+	<fcntl.h>
+	<MacTypes.h>
+	"getopt.h"
+	<stdint.h>
+	<sys/types.h>
+	<wchar.h>
+	<ctype.h>
+	<errno.h>
+	<sys/stat.h>
+	<direct.h>
+	"getopt.h"
+	<getopt.h>
+	<unistd.h>
+	<iconv.h>
+	"world.h"
+	"file_compat.h"
+	<direct.h>
+

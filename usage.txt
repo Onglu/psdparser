@@ -1,0 +1,35 @@
+usage: ./psdparse [options] psdfile...
+  -h, --help         show this help
+  -V, --version      show version
+  -v, --verbose      print more information
+  -q, --quiet        work silently
+  -r, --resources    process and print 'image resources' metadata
+      --resdump      print hex dump of resource contents (implies --resources)
+  -e, --extra        process 'additional data' (non-image layers, v4 and later)
+                     (enabled by default on 16 and 32 bit files)
+  -w, --writepng     write PNG files of each raster layer (and merged composite)
+  -n, --numbered     use 'layerNN' name for file, instead of actual layer name
+      --unicode      use Unicode layer names for filenames (implies --extra)
+  -d, --pngdir dir   put PNGs in specified directory (implies --writepng)
+  -m, --makedirs     create subdirectory for PNG if layer name contains /'s
+  -l, --list         write an 'asset list' of layer sizes and positions
+  -x, --xml          write XML describing document, layers, and any output files
+      --xmlout       direct XML to standard output (implies --xml and --quiet)
+  -s, --split        write each composite channel to individual (grey scale) PNG
+      --mergedonly   process merged composite image only (if available)
+      --rebuild      write a new PSD/PSB with extracted image layers only
+        --rebuildpsd    try to rebuild in PSD (v1) format, never PSB (v2)
+      --scavenge     ignore file header, search entire file for image layers
+         --psb           for scavenge, assume PSB (default PSD)
+         --depth N       for scavenge, assume this bit depth (default 8)
+         --mode N        for scavenge, assume this mode (optional):
+                           1 bit:  Bitmap 0
+                           8 bit:  GrayScale 1, IndexedColor 2, RGBColor 3,
+                                   CMYKColor 4, HSLColor 5, HSBColor 6,
+                                   Multichannel 7, Duotone 8, LabColor 9
+                           16 bit: Gray16 10, RGB48 11, Lab48 12,
+                                   CMYK64 13, DeepMultichannel 14, Duotone16 15
+         --mergedrows N  to scavenge merged image, row count must be known
+         --mergedcols N  to scavenge merged image, column count must be known
+         --mergedchan N  to scavenge merged image, channel count must be known (default 3)
+      --scavengeimg  search for compressed channel data

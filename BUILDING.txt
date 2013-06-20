@@ -1,0 +1,85 @@
+How to build/install
+--------------------
+
+Prerequisites:
+
+* zlib (usually preinstalled on Linux or OS X)
+  Download via http://www.zlib.net/
+  Extract alongside psdparse directory, see Makefile
+* libpng
+  Download via http://www.libpng.org/pub/png/libpng.html
+  On OS X or Win32 (MinGW tools), Makefile statically links.
+  Extract alongside psdparse directory.
+
+If your system has these libraries as shared library packages,
+you can use those with appropriate changes to the Makefile.
+
+Mac OS X users: the Developer Tools must be installed 
+(see the CDs that came with your Mac, or download from 
+http://developer.apple.com/tools/download/).
+
+
+General build instructions (from tarball)
+--------------------------
+
+	$ ./configure
+	$ make
+and to put the program in a usual install directory:
+	$ make install
+
+(This should also work for Cygwin, but is untested.)
+
+See './configure --help' for standard GNU options, such as changing 
+the program's final resting place, or compiler, or compiler options.
+
+
+Build from repository (Subversion checkout)
+---------------------
+
+	$ automake -a -f --foreign
+	...then follow steps for "General build instructions"
+
+
+Quick build instructions for OS X
+---------------------------------
+Install Subversion from package at http://metissian.com/projects/macosx/subversion/
+or http://downloads.open.collab.net/binaries.html
+
+Then:
+	$ curl http://superb-west.dl.sourceforge.net/sourceforge/libpng/libpng-1.2.16.tar.bz2 |tar -xjvf -
+	$ curl http://www.zlib.net/zlib-1.2.3.tar.bz2 |tar -xjvf -
+	$ svn checkout http://telegraphics.com.au/svn/psdparse/trunk psdparse
+	$ cd psdparse
+
+1. build using the supplied Makefile:
+	$ make -f Makefile.unix
+
+
+Cross-build Win32 EXE from OS X or Linux
+----------------------------------------
+	
+The supplied Makefile is also the easiest way to CROSS-build for Win32,
+if you have MinGW installed;
+	$ make -f Makefile.unix exe
+
+See the Makefile for more information and prerequisites.
+
+This may also work in MinGW and Cygwin on Windows.
+
+
+Building with MPW (Mac OS 7,8,9,Classic)
+----------------------------------------
+An MPW makefile is provided. Simply Build Program "psdparse".
+
+
+Building on Windows
+-------------------
+Use Cygwin http://cygwin.com/, MinGW http://mingw.org/,
+or upgrade to Linux. Alternatively, the code can probably be built 
+with a freely downloadable toolset such as:
+* http://www.borland.com/products/downloads/download_cbuilder.html
+* http://www.openwatcom.org/download/download_licenses.html
+* http://www.digitalmars.com/download/dmcpp.html
+
+
+Help is always available from support@telegraphics.com.au

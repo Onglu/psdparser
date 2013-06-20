@@ -1,0 +1,144 @@
+#    This file is part of "psdparse"
+#    Copyright (C) 2004-9 Toby Thain, toby@telegraphics.com.au
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by  
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License  
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This program uses libpng, zlib and libiconv.
+# - on most Linux/UNIX systems, these are shared libraries preinstalled
+#   or easily installed with a package manager.
+# - on Windows, this makefile is set up to build them from source with MinGW
+#   and static link.
+# - on OS X, zlib is standard but libpng is not, so it needs to be
+#   installed, using a package manager if you have one, or from source.
+#   (libpng can be downloaded via http://www.libpng.org/pub/png/libpng.html)
+
+VERSION := $(shell perl -n -e 'm/^\#.*VERSION_STR[[:blank:]]+\"([^"]*)\"/ && print $$1;' version.h)
+
+# if building with MinGW ('make exe'), extract zlib and libpng to these directories:
+LIBPNGW32 = ../libpng-1.2.32_w32
+ZLIBW32 = ../zlib-1.2.3_w32
+# (zlib can be downloaded via http://www.zlib.net/)
+
+# define MinGW tools
+MINGW_CC      = i386-mingw32msvc-gcc
+MINGW_AR      = i386-mingw32msvc-ar
+MINGW_RANLIB  = i386-mingw32msvc-ranlib
+MINGW_WINDRES = i386-mingw32msvc-windres
+
+CPPFLAGS += -DDIRSEP="'/'" -DDEFAULT_VERBOSE=0 -DPSBSUPPORT -D_LARGEFILE_SOURCE \
+            -DHAVE_SYS_MMAN_H -DHAVE_ICONV_H -DHAVE_ZLIB_H
+CFLAGS   += -O2 -W -Wall -Wno-unused-parameter
+
+# remove -liconv if building on Linux:
+LDFLAGS  += -liconv
+
+SRC    = main.c writepng.c writeraw.c unpackbits.c packbits.c write.c \
+		 resources.c icc.c extra.c constants.c util.c descriptor.c \
+		 channel.c psd.c scavenge.c pdf.c psd_zip.c duotone.c \
+		 rebuild.c
+OBJ    = $(patsubst %.c, obj/%.o,     $(SRC) mmap.c)
+OBJW32 = $(patsubst %.c, obj_w32/%.o, $(SRC) mmap_win.c) obj_w32/res.o
+
+obj/%.o     : %.c ; $(CC)       -o $@ -c $< $(CFLAGS) $(CPPFLAGS)
+obj_w32/%.o : %.c ; $(MINGW_CC) -o $@ -c $< $(CFLAGS) $(CPPFLAGS)
+
+
+.PHONY : all clean test fat exe zip
+
+all : psdparse
+
+clean :
+	rm -f psdparse example psd2xcf pngresize psdparse.exe psd2png.exe \
+		  *.o $(OBJ) $(OBJW32) $(LIBPNGW32)/*.[oa]
+	-$(MAKE) -C $(ZLIBW32) clean
+	-$(MAKE) -C $(LIBPNGW32) clean
+
+
+# fuzz testing. depends on 'garble' tool, 
+# see http://www.telegraphics.com.au/svn/garble/trunk/
+
+test : adobehq_ind.psd ../garble/garble
+	cp $< test.psd; \
+	for (( I=1 ; I<20 ; ++I )) ; do \
+		./psdparse -w -d _pass$$I test.psd; \
+		../garble/garble test.psd 200; \
+	done
+
+
+psdparse : CPPFLAGS += -DHAVE_SETRLIMIT
+
+psdparse : $(OBJ)
+	$(CC) -o $@ $^ -lz -lpng $(LDFLAGS)
+
+fat : CFLAGS += -isysroot /Developer/SDKs/MacOSX10.4u.sdk -arch ppc -arch i386
+fat : LDFLAGS += -Wl,-syslibroot,/Developer/SDKs/MacOSX10.4u.sdk -arch ppc -arch i386 -mmacosx-version-min=10.4
+fat : psdparse
+
+
+# Example application using psdparse as a library.
+
+# This is the minimum set of prerequisite objects.
+example : example.o psd.o util.o extra.o descriptor.o constants.o \
+          pdf.o resources.o icc.o channel.o psd_zip.o unpackbits.o \
+          duotone.o
+
+# Standalone converter from PSD/PSB to Gimp XCF.
+
+psd2xcf : psd2xcf.o xcf.o psd.o util.o extra.o descriptor.o constants.o \
+          pdf.o resources.o icc.o channel.o psd_zip.o unpackbits.o \
+          duotone.o
+
+pngresize : pngresize.o
+	$(CC) -o $@ $^ -lz -lpng
+
+# Win32 EXE built by MinGW
+# psdparse.exe - standard CLI tool
+# psd2png.exe  - variant intended for drag'n'drop, that always writes PNGs and asset list
+
+exe : psdparse.exe psd2png.exe
+
+W32FLAGS = -DDIRSEP="'\\\\'" -I$(LIBPNGW32) -I$(ZLIBW32)
+
+psdparse.exe : CPPFLAGS += $(W32FLAGS)
+psd2png.exe  : CPPFLAGS += $(W32FLAGS) -DALWAYS_WRITE_PNG 
+
+psdparse.exe : $(ZLIBW32)/libz.a $(LIBPNGW32)/libpng.a $(OBJW32)
+	$(MINGW_CC) -s -o $@ $(filter-out %.a,$^) -L$(ZLIBW32) -L$(LIBPNGW32) -lpng -lz
+psd2png.exe : $(ZLIBW32)/libz.a $(LIBPNGW32)/libpng.a \
+			  $(subst main.o,main_psd2png.o,$(OBJW32))
+	$(MINGW_CC) -s -o $@ $(filter-out %.a,$^) -L$(ZLIBW32) -L$(LIBPNGW32) -lpng -lz
+
+obj_w32/main_psd2png.o : main.c ; $(MINGW_CC) -o $@ -c $< $(CFLAGS) $(CPPFLAGS)
+
+obj_w32/res.o : version.rc version.h ; $(MINGW_WINDRES) -o $@ -i $<
+
+
+ZIP = psdparse-$(VERSION)-win.zip
+zip : $(ZIP)
+
+$(ZIP) : README.txt gpl.html psdparse.exe psd2png.exe
+	zip -9 $@ $^
+
+
+# rules to build Win32 libraries
+
+$(LIBPNGW32)/libpng.a : $(LIBPNGW32)/scripts/makefile.gcc
+	$(MAKE) -C $(LIBPNGW32) CC=$(MINGW_CC) CRELEASE=-I$(ZLIBW32) AR="$(MINGW_AR) rcs" RANLIB=$(MINGW_RANLIB) \
+		-f scripts/makefile.gcc libpng.a
+
+$(ZLIBW32)/libz.a : $(ZLIBW32)/configure
+	cd $(ZLIBW32); \
+	CC=$(MINGW_CC) AR="$(MINGW_AR) rcs" RANLIB=$(MINGW_RANLIB) ./configure; \
+	$(MAKE) libz.a

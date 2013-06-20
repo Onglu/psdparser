@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpsdparser", "vclib.vcxproj", "{B2BC1A8F-2CC0-428D-AA6F-F390BA5C60AA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PsdParser", "..\mfctest\mfctest.vcxproj", "{9E1FC0FB-93A3-400E-9BC6-DC40E8608C00}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B2BC1A8F-2CC0-428D-AA6F-F390BA5C60AA} = {B2BC1A8F-2CC0-428D-AA6F-F390BA5C60AA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "console", "..\console\console.vcxproj", "{44DCADCA-DB8E-4FD8-AD84-97328FB942C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2BC1A8F-2CC0-428D-AA6F-F390BA5C60AA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B2BC1A8F-2CC0-428D-AA6F-F390BA5C60AA}.Debug|Win32.Build.0 = Debug|Win32
+		{B2BC1A8F-2CC0-428D-AA6F-F390BA5C60AA}.Release|Win32.ActiveCfg = Release|Win32
+		{B2BC1A8F-2CC0-428D-AA6F-F390BA5C60AA}.Release|Win32.Build.0 = Release|Win32
+		{9E1FC0FB-93A3-400E-9BC6-DC40E8608C00}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9E1FC0FB-93A3-400E-9BC6-DC40E8608C00}.Debug|Win32.Build.0 = Debug|Win32
+		{9E1FC0FB-93A3-400E-9BC6-DC40E8608C00}.Release|Win32.ActiveCfg = Release|Win32
+		{9E1FC0FB-93A3-400E-9BC6-DC40E8608C00}.Release|Win32.Build.0 = Release|Win32
+		{44DCADCA-DB8E-4FD8-AD84-97328FB942C8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{44DCADCA-DB8E-4FD8-AD84-97328FB942C8}.Debug|Win32.Build.0 = Debug|Win32
+		{44DCADCA-DB8E-4FD8-AD84-97328FB942C8}.Release|Win32.ActiveCfg = Release|Win32
+		{44DCADCA-DB8E-4FD8-AD84-97328FB942C8}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
