@@ -439,6 +439,6 @@ void duotone_data(psd_file_t f, int level);
 
 void rebuild_psd(psd_file_t psd, int version, struct psd_header *h);
 
-double calculate_angle(void *li);
+void calculate_angle(void *li);
 
 #endif

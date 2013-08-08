@@ -433,11 +433,6 @@ static void ed_key(psd_file_t f, int level, int len, struct dictentry *parent){
 		fprintf(xml, "%s", key);
 	else
 		UNQUIET("    (%s = '%s')\n", parent->desc, key);
-
-	if (g_lid < g_info.count && g_info.layers && !strcmp(key, "bgnd"))
-	{
-		g_info.layers[g_lid].canvas = 1;
-	}
 }
 
 static void ed_sectiondivider(psd_file_t f, int level, int len, struct dictentry *parent){

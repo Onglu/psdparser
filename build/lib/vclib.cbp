@@ -19,17 +19,17 @@
 					<Add option="-D_USE_MATH_DEFINES" />
 					<Add option="-DHAVE_ZLIB_H" />
 					<Add option="-DPSDPARSER_EXPORTS" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../include/libpng" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../include/zlib" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../include/gettext" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../include/win32" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../" />
-					<Add directory="G:/Projects/psdparse/build/lib/" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../include/libpng" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../include/zlib" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../include/gettext" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../include/win32" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../" />
+					<Add directory="G:/Projects/psdparser/build/lib/" />
 				</Compiler>
 				<Linker>
 					<Add library="libpng.a" />
 					<Add library="libz.a" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../lib/win32/Debug" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../lib/win32/Debug" />
 				</Linker>
 			</Target>
 			<Target title="Release Win32">
@@ -45,12 +45,12 @@
 					<Add option="-D_USE_MATH_DEFINES" />
 					<Add option="-DHAVE_ZLIB_H" />
 					<Add option="-DPSDPARSER_EXPORTS" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../include/libpng" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../include/zlib" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../include/gettext" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../include/win32" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../" />
-					<Add directory="G:/Projects/psdparse/build/lib/" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../include/libpng" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../include/zlib" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../include/gettext" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../include/win32" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../" />
+					<Add directory="G:/Projects/psdparser/build/lib/" />
 					<Add directory="G:/Programs/TDM-GCC/lib/gcc/mingw32/4.7.1" />
 					<Add directory="G:/Programs/TDM-GCC/lib" />
 				</Compiler>
@@ -58,7 +58,7 @@
 					<Add option="-Wl,--kill-at -disable-threads -static-libgcc" />
 					<Add library="libpng.a" />
 					<Add library="libz.a" />
-					<Add directory="G:/Projects/psdparse/build/lib/../../lib/win32/Release" />
+					<Add directory="G:/Projects/psdparser/build/lib/../../lib/win32/Release" />
 				</Linker>
 			</Target>
 		</Build>

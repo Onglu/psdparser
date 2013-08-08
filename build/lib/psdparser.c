@@ -76,53 +76,62 @@ int is_photo(const char *name)
 	return 0;
 }
 
-double calculate_angle(void *li)
+void calculate_angle(void *li)
 {
 	int refX, refY, sign = 0, delta = 0;
 	double sx, si, s1 = 0, s2 = 0, b = 0, c = -1, r, angle = 0, X = 0, x1, x2;
 	const double degree = 180 / 3.1415926535, arc = 3.1415926535 / 180, a = -1;
 	PSD_LAYER_INFO *layer = (PSD_LAYER_INFO *)li;
+	enum rotation{none, ac_aa, ac_oa, c_aa, c_oa} type = none;
 
 	if (!layer)
 	{
-		return 0;
+		return;
 	}
 
-	refX = 0 < layer->ref.x ? layer->ref.x + 0.5 : layer->ref.x - 0.5;
-	refY = 0 < layer->ref.y ? layer->ref.y + 0.5 : layer->ref.y - 0.5;
+	layer->name;
+
+// 	refX = 0 < layer->ref.x ? layer->ref.x + 0.5 : layer->ref.x - 0.5;
+// 	refY = 0 < layer->ref.y ? layer->ref.y + 0.5 : layer->ref.y - 0.5;
+	refX = ceil(0 < layer->ref.x ? layer->ref.x + 0.5 : layer->ref.x - 0.5);
+	refY = ceil(0 < layer->ref.y ? layer->ref.y + 0.5 : layer->ref.y - 0.5);
 
 	do
 	{
-		if (layer->left == refX - delta)	// Anticlockwise rotation(0бу~ 90бу)
+		if (layer->left == refX - delta || layer->left == refX + delta)	// Anticlockwise rotation(0бу~ 90бу)
 		{
 			sign = -1;
+			type = ac_aa;
 			s1 = layer->ref.y - layer->top;
 			s2 = layer->bound.height - s1;
 			b = layer->bound.width;
 			break;
 		}
 
-		if (layer->bottom == refY + delta)	// Anticlockwise rotation(90бу~ 180бу)
+		if (layer->bottom == refY - delta || layer->bottom == refY + delta)	// Anticlockwise rotation(90бу~ 180бу)
 		{
 			sign = -1;
+			type = ac_oa;
 			s1 = layer->ref.x - layer->left;
 			s2 = layer->bound.width - s1;
 			b = layer->bound.height;
 			break;
 		}
 
-		if (layer->top == refY - delta)	// Clockwise rotation(0бу~ 90бу)
+		if (layer->top == refY - delta || layer->top == refY + delta)	// Clockwise rotation(0бу~ 90бу)
 		{
 			sign = 1;
+			type = c_aa;
 			s1 = layer->ref.x - layer->left;
 			s2 = layer->bound.width - s1;
 			b = layer->bound.height;
 			break;
 		}
 
-		if (layer->right == refX + delta)	// Clockwise rotation(90бу~ 180бу)
+		if (layer->right == refX - delta || layer->right == refX + delta)	// Clockwise rotation(90бу~ 180бу)
 		{
 			sign = 1;
+			type = c_oa;
 			s1 = layer->ref.y - layer->top;
 			s2 = layer->bound.height - s1;
 			b = layer->bound.width;
@@ -132,7 +141,7 @@ double calculate_angle(void *li)
 		delta++;
 	} while (3 >= delta);
 
-	if ((!layer->top && !layer->left) || (!layer->ref.x && !layer->ref.y) || (!s1 && !s2) || 0 > s1 || 0 > s2)
+	if (!type || (!layer->top && !layer->left) || (!layer->ref.x && !layer->ref.y) || (!s1 && !s2) || 0 > s1 || 0 > s2)
 	{
 		goto end;
 	}
@@ -158,16 +167,18 @@ double calculate_angle(void *li)
 	sx = max(s1, s2);
 	si = min(s1, s2);
 
-	if (0 > sign)
+	if (c_aa > type)
 	{
-		if (s1 > s2)
-		{
-			X = x2;
-		}
-		else
-		{
-			X = 0 > x1 ? -1 * x1 : x1;
-		}
+// 		if (s1 > s2)
+// 		{
+// 			X = x2;
+// 		}
+// 		else
+// 		{
+// 			X = 0 > x1 ? -1 * x1 : x1;
+// 		}
+
+		X = ac_aa == type ? fabs(x1) : x2;
 
 		if (b < X + delta)
 		{
@@ -193,14 +204,16 @@ double calculate_angle(void *li)
 	}
 	else
 	{
-		if (s1 > s2)
-		{
-			X = 0 > x1 ? -1 * x1 : x1;
-		}
-		else
-		{
-			X = x2;
-		}
+// 		if (s1 > s2)
+// 		{
+// 			X = fabs(x1);
+// 		}
+// 		else
+// 		{
+// 			X = x2;
+// 		}
+
+		X = c_aa == type ? fabs(x1) : x2;
 
 		if (b < X + delta)
 		{
@@ -233,7 +246,7 @@ end:
 		layer->actual.height = layer->bound.height;
 	}
 
-	return (angle ? angle * sign : angle);
+	layer->angle = angle * sign;
 }
 
 #if defined(__cplusplus)    // Mainly to support C++ specification

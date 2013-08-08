@@ -75,7 +75,7 @@ static void writechannels(psd_file_t f, char *dir, char *name,
 							li->mask.default_colour);
 					}
 
-					if (g_lid && g_lid < g_info.count && g_info.layers && 36 == strlen(pngname) && is_photo(li->name))
+					if (LT_Photo == g_info.layers[g_lid].type)
 					{
 						for (i = 0; i < MAX_UUID_LEN; i++)
 						{
@@ -105,9 +105,7 @@ static void writechannels(psd_file_t f, char *dir, char *name,
 						}
 
 						memset(&g_info.layers[j], 0, sizeof(PSD_LAYER_INFO));
-
 						g_info.layers[j].type = LT_Mask;
-						g_info.layers[g_lid].type = LT_Photo;
 
 						strcpy(g_info.layers[j].lid, pngname);
 						strcpy(g_info.layers[g_lid].mid, pngname);

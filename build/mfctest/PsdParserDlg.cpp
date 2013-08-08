@@ -232,7 +232,7 @@ void CPsdParserDlg::OnBnClickedButtonBrowse()
 					guid.Data4[6], guid.Data4[7]);
 			}
 
-			strItem.Format(_T("Layer %d - %s(%d)"), i, A2W(m_info->layers[i].name), m_info->layers[i].type);
+			strItem.Format(_T("Layer %d: name = %s, type = %d"), i, A2W(m_info->layers[i].name), m_info->layers[i].type);
 			m_layersListBox.AddString(strItem);
 			//TRACE(_T("%s: center point(x = %lf, y = %lf)\n"), strItem, m_info->layers[i].center.x, m_info->layers[i].center.y);
 		}
@@ -254,7 +254,7 @@ void CPsdParserDlg::OnBnClickedButtonSaveas()
 	CString strItem;
 	for (int i = 0; i < m_info->count; i++)
 	{
-		strItem.Format(_T("Layer %d - %s(%d)"), i, A2W(m_info->layers[i].name), m_info->layers[i].type);
+		strItem.Format(_T("Layer %d: name = %s, type = %d"), i, A2W(m_info->layers[i].name), m_info->layers[i].type);
 		TRACE(_T("%s: lid = %s\n"), strItem, A2W(m_info->layers[i].lid));
 	}
 }

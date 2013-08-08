@@ -314,6 +314,11 @@ void processlayers(psd_file_t f, struct psd_header *h)
 			{
 				if (!writepng)
 				{
+					if (is_photo(li->name))
+					{
+						g_info.layers[j].type = LT_Photo;
+					}
+
 					strcpy(g_info.layers[j].name, li->name);
 					g_info.layers[j].opacity = (float)li->blend.opacity / 255;
 					g_info.layers[j].top = li->top;
@@ -325,27 +330,15 @@ void processlayers(psd_file_t f, struct psd_header *h)
 					g_info.layers[j].bound.height = rows;
 					g_info.layers[j].center.x = (int)cols / 2 + li->left;
 					g_info.layers[j].center.y = (int)rows / 2 + li->top;
-					g_info.layers[j].angle = calculate_angle(&g_info.layers[j]);
+					calculate_angle(&g_info.layers[j]);
 				}
 				else
 				{
-// 					if (li->blend.clipping && j && !h->linfo[j - 1].blend.clipping && MAX_UUID_LEN == strlen(g_info.layers[j - 1].lid))
-// 					{
-//  						g_info.layers[j - 1].type = LT_Mask;
-// 						g_info.layers[j].type = LT_Photo;
-// 						strcpy(g_info.layers[j].mid, g_info.layers[j - 1].lid);
-// 					}
-// 					else
-//					{
-// 						memset(buf, 0, 7);
-// 						strncpy(buf, &li->name[strlen(li->name) - 6], 6);
-						if (/*!stricmp(buf, "@photo")*/ is_photo(li->name) && MAX_UUID_LEN == strlen(g_info.layers[j - 1].lid))
-						{
-							g_info.layers[j - 1].type = LT_Mask;
-							g_info.layers[j].type = LT_Photo;
-							strcpy(g_info.layers[j].mid, g_info.layers[j - 1].lid);
-						}
-//					}				
+					if (li->blend.clipping && j && !h->linfo[j - 1].blend.clipping && LT_Photo == g_info.layers[j].type)
+					{
+						g_info.layers[j - 1].type = LT_Mask;
+						strcpy(g_info.layers[j].mid, g_info.layers[j - 1].lid);
+					}
 				}
 
 				j++;
