@@ -1,5 +1,9 @@
-﻿生成启动时间为 2013/8/8 9:22:29。
+﻿生成启动时间为 2013/8/19 18:24:41。
+     1>项目“G:\Projects\psdparser\build\lib\vclib.vcxproj”在节点 3 上(clean 个目标)。
+     1>_PrepareForClean:
+         正在删除文件“Debug\libpsdparser.lastbuildstate”。
+     1>已完成生成项目“G:\Projects\psdparser\build\lib\vclib.vcxproj”(clean 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:00.01
+已用时间 00:00:00.05

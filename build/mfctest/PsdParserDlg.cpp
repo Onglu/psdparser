@@ -129,7 +129,7 @@ BOOL CPsdParserDlg::OnInitDialog()
 	m_pBaseProperty->AddSubItem(new CMFCPropertyGridProperty(_T("图层类型"), _T("")));
 	m_pBaseProperty->AddSubItem(new CMFCPropertyGridProperty(_T("通道数量"), _T("")));
 	m_pBaseProperty->AddSubItem(new CMFCPropertyGridProperty(_T("边框大小"), _T("")));
-	m_pBaseProperty->AddSubItem(new CMFCPropertyGridProperty(_T("图片大小"), _T("")));
+	m_pBaseProperty->AddSubItem(new CMFCPropertyGridProperty(_T("实际大小"), _T("")));
 	m_pBaseProperty->AddSubItem(new CMFCPropertyGridProperty(_T("显示区域"), _T("")));
 	m_infoProperty.AddProperty(m_pBaseProperty);
 
@@ -233,7 +233,7 @@ void CPsdParserDlg::OnBnClickedButtonBrowse()
 			}
 
 			strItem.Format(_T("Layer %d: name = %s, type = %d"), i, A2W(m_info->layers[i].name), m_info->layers[i].type);
-			m_layersListBox.AddString(strItem);
+			m_layersListBox.InsertString(i, strItem);
 			//TRACE(_T("%s: center point(x = %lf, y = %lf)\n"), strItem, m_info->layers[i].center.x, m_info->layers[i].center.y);
 		}
 
@@ -249,13 +249,12 @@ void CPsdParserDlg::OnBnClickedButtonSaveas()
 	psd_to_png(m_info);
 
 	USES_CONVERSION;
-	TRACE(_T("count = %d\n"), m_info->count);
 
 	CString strItem;
 	for (int i = 0; i < m_info->count; i++)
 	{
 		strItem.Format(_T("Layer %d: name = %s, type = %d"), i, A2W(m_info->layers[i].name), m_info->layers[i].type);
-		TRACE(_T("%s: lid = %s\n"), strItem, A2W(m_info->layers[i].lid));
+		TRACE(_T("%s: lid = %s, mid = %s\n"), strItem, A2W(m_info->layers[i].lid), 0 < strlen(m_info->layers[i].mid) ? A2W(m_info->layers[i].mid) : L"null");
 	}
 }
 
@@ -285,10 +284,17 @@ void CPsdParserDlg::SetLayerInfo(int id)
 	size.Format(_T("%u x %u"), m_info->layers[id].bound.width, m_info->layers[id].bound.height);
 	m_pBaseProperty->GetSubItem(2)->SetValue(size);
 
-	size.Format(_T("%u x %u"), m_info->layers[id].actual.width, m_info->layers[id].actual.height);
+	if (!m_info->layers[id].actual.width && !m_info->layers[id].actual.height)
+	{
+		size.Format(_T("%u x %u"), m_info->layers[id].bound.width, m_info->layers[id].bound.height);
+	}
+	else
+	{
+		size.Format(_T("%u x %u"), m_info->layers[id].actual.width, m_info->layers[id].actual.height);
+	}
 	m_pBaseProperty->GetSubItem(3)->SetValue(size);
 
-	rect.Format(_T("%d, %d, %d, %d"), m_info->layers[id].top, m_info->layers[id].left, m_info->layers[id].bottom, m_info->layers[id].right);
+	rect.Format(_T("%d, %d, %d, %d"), m_info->layers[id].left, m_info->layers[id].top, m_info->layers[id].right, m_info->layers[id].bottom);
 	m_pBaseProperty->GetSubItem(4)->SetValue(rect);
 
 	center.Format(_T("%lf, %lf"), m_info->layers[id].center.x, m_info->layers[id].center.y);

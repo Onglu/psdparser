@@ -330,11 +330,16 @@ void processlayers(psd_file_t f, struct psd_header *h)
 					g_info.layers[j].bound.height = rows;
 					g_info.layers[j].center.x = (int)cols / 2 + li->left;
 					g_info.layers[j].center.y = (int)rows / 2 + li->top;
+
+#ifdef VER_NO_1_0_0
+					g_info.layers[j].angle = 0;
+#else
 					calculate_angle(&g_info.layers[j]);
+#endif
 				}
 				else
 				{
-					if (li->blend.clipping && j && !h->linfo[j - 1].blend.clipping && LT_Photo == g_info.layers[j].type)
+					if (li->blend.clipping && j && !h->linfo[i - 1].blend.clipping && LT_Photo == g_info.layers[j].type)
 					{
 						g_info.layers[j - 1].type = LT_Mask;
 						strcpy(g_info.layers[j].mid, g_info.layers[j - 1].lid);

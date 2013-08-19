@@ -246,7 +246,7 @@ end:
 		layer->actual.height = layer->bound.height;
 	}
 
-	layer->angle = angle * sign;
+	layer->angle = angle ? angle * sign : angle;
 }
 
 #if defined(__cplusplus)    // Mainly to support C++ specification

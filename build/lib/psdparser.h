@@ -7,6 +7,7 @@
 #define PSDPARSER __declspec(dllimport)
 #endif
 
+#define VER_NO_1_0_0	100
 #define MAX_UUID_LEN	36
 
 enum layer_type{LT_Background, LT_Photo, LT_Decoration, LT_Mask};

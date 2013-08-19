@@ -240,7 +240,7 @@
 1367571046 source:g:\projects\psdparser\duotone.c
 	"psdparse.h"
 
-1375779099 source:g:\projects\psdparser\extra.c
+1376365085 source:g:\projects\psdparser\extra.c
 	"psdparse.h"
 	"psdparser.h"
 
@@ -331,7 +331,7 @@
 	<string.h>
 	"psdparse.h"
 
-1375778658 source:g:\projects\psdparser\build\lib\psdparser.c
+1376906545 source:g:\projects\psdparser\build\lib\psdparser.c
 	<stdio.h>
 	<string.h>
 	<math.h>
@@ -340,9 +340,9 @@
 	"png.h"
 	"zlib.h"
 
-1370591384 g:\projects\psdparser\build\lib\psdparser.h
+1376276736 g:\projects\psdparser\build\lib\psdparser.h
 
-1375771022 source:g:\projects\psdparser\psd.c
+1376907195 source:g:\projects\psdparser\psd.c
 	"psdparse.h"
 	"cwprefix.h"
 	"psdparser.h"
@@ -350,7 +350,7 @@
 1367571046 g:\projects\psdparser\\getopt.h
 	<ctype.h>
 
-1370591384 g:\projects\psdparser\build\lib\\psdparser.h
+1376276736 g:\projects\psdparser\build\lib\\psdparser.h
 
 1356413350 g:\projects\psdparser\include\gettext\gettext.h
 	<libintl.h>

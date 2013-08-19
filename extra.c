@@ -580,6 +580,8 @@ static void ed_byte(psd_file_t f, int level, int len, struct dictentry *parent){
 static void ed_referencepoint(psd_file_t f, int level, int len, struct dictentry *parent){
 	double x,y;
 
+	g_info.layers[g_lid].name;
+
 	x = getdoubleB(f);
 	y = getdoubleB(f);
 
@@ -588,11 +590,13 @@ static void ed_referencepoint(psd_file_t f, int level, int len, struct dictentry
 	else
 		UNQUIET("    (%s X=%g Y=%g)\n", parent->desc, x, y);
 
+//#ifndef VER_NO_1_0_0
 	if (g_info.layers && g_lid < g_info.count)
 	{
 		g_info.layers[g_lid].ref.x = x;
 		g_info.layers[g_lid].ref.y = y;
 	}
+//#endif
 }
 
 // CS doc
